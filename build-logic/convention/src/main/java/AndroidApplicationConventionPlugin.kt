@@ -1,4 +1,6 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.angelme.convention.ExtensionType
+import com.angelme.convention.configureBuildTypes
 import com.angelme.convention.configureKotlinAndroid
 import com.angelme.convention.libs
 import org.gradle.api.Plugin
@@ -22,6 +24,11 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 }
 
                 configureKotlinAndroid(this)
+
+                configureBuildTypes(
+                    commonExtension = this,
+                    extensionType = ExtensionType.APPLICATION
+                )
             }
         }
     }
