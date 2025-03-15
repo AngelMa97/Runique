@@ -1,6 +1,6 @@
 plugins {
+    alias(libs.plugins.runique.android.application.compose)
     alias(libs.plugins.mapsplatform.secrets.plugin)
-    alias(libs.plugins.runique.android.application)
 }
 
 android {
@@ -10,9 +10,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
