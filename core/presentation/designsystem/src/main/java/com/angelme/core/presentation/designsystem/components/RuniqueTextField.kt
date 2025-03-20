@@ -38,7 +38,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.angelme.core.presentation.designsystem.CheckIcon
 import com.angelme.core.presentation.designsystem.EmailIcon
-import com.angelme.core.presentation.designsystem.RuniqueGray
 import com.angelme.core.presentation.designsystem.RuniqueTheme
 
 @Composable
