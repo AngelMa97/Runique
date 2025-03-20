@@ -3,6 +3,7 @@ package com.angelme.runique
 import android.app.Application
 import com.angelme.auth.data.di.authDataModule
 import com.angelme.auth.presentation.di.authViewModelModule
+import com.angelme.core.data.networking.di.coreDataModule
 import com.angelme.core.presentation.designsystem.BuildConfig
 import com.angelme.runique.di.appModule
 import org.koin.android.ext.koin.androidContext
@@ -24,7 +25,8 @@ class RuniqueApp: Application() {
             modules(
                 authDataModule,
                 authViewModelModule,
-                appModule
+                appModule,
+                coreDataModule
             )
         }
     }
