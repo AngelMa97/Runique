@@ -112,7 +112,7 @@ fun RegisterScreen(
                 state = state.email,
                 startIcon = EmailIcon,
                 endIcon = if (state.isEmailValid) {
-                    EmailIcon
+                    CheckIcon
                 } else null,
                 hint = stringResource(id = R.string.example_email),
                 title = stringResource(id = R.string.email),
