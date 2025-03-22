@@ -3,7 +3,6 @@
 package com.angelme.run.domain
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -13,7 +12,7 @@ import kotlinx.coroutines.flow.stateIn
 
 class RunningTracker(
     private val locationObserver: LocationObserver,
-    private val applicationScope: CoroutineScope
+    applicationScope: CoroutineScope
 ) {
     private val isObservingLocation = MutableStateFlow(false)
 
