@@ -1,10 +1,8 @@
 package com.angelme.auth.presentation.login
 
 import android.widget.Toast
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -187,7 +185,7 @@ fun LoginScreen(
 
 @Preview
 @Composable
-fun LoginScreenPreview(modifier: Modifier = Modifier) {
+fun LoginScreenPreview() {
     RuniqueTheme {
         LoginScreen(
             state = LoginState(),

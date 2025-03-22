@@ -36,7 +36,6 @@ import com.angelme.core.presentation.designsystem.EmailIcon
 import com.angelme.core.presentation.designsystem.Poppins
 import com.angelme.core.presentation.designsystem.R
 import com.angelme.core.presentation.designsystem.RuniqueDarkRed
-import com.angelme.core.presentation.designsystem.RuniqueGray
 import com.angelme.core.presentation.designsystem.RuniqueGreen
 import com.angelme.core.presentation.designsystem.RuniqueTheme
 import com.angelme.core.presentation.designsystem.components.GradientBackground

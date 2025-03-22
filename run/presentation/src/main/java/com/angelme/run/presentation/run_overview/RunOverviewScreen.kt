@@ -94,7 +94,7 @@ fun RunOverviewScreen(
 
 @Preview
 @Composable
-fun RunOverviewScreenPreview(modifier: Modifier = Modifier) {
+fun RunOverviewScreenPreview() {
     RuniqueTheme {
         RunOverviewScreen(
             onAction = {}
