@@ -5,6 +5,7 @@ import com.angelme.auth.data.di.authDataModule
 import com.angelme.auth.presentation.di.authViewModelModule
 import com.angelme.core.data.networking.di.coreDataModule
 import com.angelme.core.presentation.designsystem.BuildConfig
+import com.angelme.run.presentation.di.runViewModelModule
 import com.angelme.runique.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -26,7 +27,8 @@ class RuniqueApp: Application() {
                 authDataModule,
                 authViewModelModule,
                 appModule,
-                coreDataModule
+                coreDataModule,
+                runViewModelModule
             )
         }
     }

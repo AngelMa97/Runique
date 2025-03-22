@@ -10,6 +10,7 @@ import androidx.navigation.navigation
 import com.angelme.auth.presentation.intro.IntroScreenRoot
 import com.angelme.auth.presentation.login.LoginScreenRoot
 import com.angelme.auth.presentation.register.RegisterScreenRoot
+import com.angelme.run.presentation.run_overview.RunOverviewScreenRoot
 
 @Composable
 fun NavigationRoot(
@@ -85,7 +86,7 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
         route = "run"
     ) {
         composable("run_overview") {
-            Text(text = "Run overview!")
+            RunOverviewScreenRoot()
         }
     }
 }
