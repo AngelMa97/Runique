@@ -27,6 +27,7 @@ import com.angelme.core.presentation.designsystem.R
 import com.angelme.core.presentation.designsystem.RuniqueTheme
 import com.angelme.core.presentation.designsystem.StartIcon
 import com.angelme.core.presentation.designsystem.StopIcon
+import com.angelme.core.presentation.designsystem.components.RuniqueActionButton
 import com.angelme.core.presentation.designsystem.components.RuniqueDialog
 import com.angelme.core.presentation.designsystem.components.RuniqueFloatingActionButton
 import com.angelme.core.presentation.designsystem.components.RuniqueOutlinedActionButton
@@ -154,6 +155,37 @@ fun ActiveRunScreen(
                     .fillMaxWidth()
             )
         }
+    }
+
+    if (!state.shouldTrack && state.hasStartedRunning) {
+        RuniqueDialog(
+            title = stringResource(R.string.running_is_paused),
+            onDismiss = {
+                onAction(ActiveRunAction.OnResumeRunClick)
+            },
+            description = stringResource(R.string.resume_of_finish),
+            primaryButton = {
+                RuniqueActionButton(
+                    text = stringResource(R.string.resume),
+                    isLoading = false,
+                    onClick = {
+                        onAction(ActiveRunAction.OnResumeRunClick)
+
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+            },
+            secondaryButton = {
+                RuniqueOutlinedActionButton(
+                    text = stringResource(R.string.finish),
+                    isLoading = state.isSavingRun,
+                    onClick = {
+                        onAction(ActiveRunAction.OnFinishRunClick)
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+            }
+        )
     }
 
     if (state.showLocationRationale || state.showNotificationRationale) {
