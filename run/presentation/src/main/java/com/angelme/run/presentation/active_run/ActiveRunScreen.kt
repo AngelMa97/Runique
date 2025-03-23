@@ -33,6 +33,7 @@ import com.angelme.core.presentation.designsystem.components.RuniqueOutlinedActi
 import com.angelme.core.presentation.designsystem.components.RuniqueScaffold
 import com.angelme.core.presentation.designsystem.components.RuniqueToolbar
 import com.angelme.run.presentation.active_run.components.RunDataCard
+import com.angelme.run.presentation.active_run.maps.TrackerMap
 import com.angelme.run.presentation.util.hasLocationPermission
 import com.angelme.run.presentation.util.hasNotificationPermission
 import com.angelme.run.presentation.util.shouldShowLocationPermissionRationale
@@ -137,6 +138,13 @@ fun ActiveRunScreen(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface)
         ) {
+            TrackerMap(
+                isRunFinished = state.isRunFinished,
+                currentLocation = state.currentLocation,
+                locations = state.runData.locations,
+                onSnapshot = {},
+                modifier = Modifier.fillMaxSize()
+            )
             RunDataCard(
                 elapsedTime = state.elapsedTime,
                 runData = state.runData,
