@@ -35,6 +35,7 @@ import com.angelme.core.presentation.designsystem.components.RuniqueScaffold
 import com.angelme.core.presentation.designsystem.components.RuniqueToolbar
 import com.angelme.run.presentation.active_run.components.RunDataCard
 import com.angelme.run.presentation.active_run.maps.TrackerMap
+import com.angelme.run.presentation.active_run.service.ActiveRunService
 import com.angelme.run.presentation.util.hasLocationPermission
 import com.angelme.run.presentation.util.hasNotificationPermission
 import com.angelme.run.presentation.util.shouldShowLocationPermissionRationale
@@ -43,10 +44,12 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ActiveRunScreenRoot(
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     viewModel: ActiveRunViewModel = koinViewModel()
 ) {
     ActiveRunScreen(
         state = viewModel.state,
+        onServiceToggle = onServiceToggle,
         onAction = viewModel::onAction
     )
 }
@@ -54,6 +57,7 @@ fun ActiveRunScreenRoot(
 @Composable
 fun ActiveRunScreen(
     state: ActiveRunState,
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     onAction: (ActiveRunAction) -> Unit
 ) {
     val context = LocalContext.current
@@ -109,6 +113,18 @@ fun ActiveRunScreen(
             permissionLauncher.requestRuniquePermissions(context)
         }
 
+    }
+
+    LaunchedEffect(key1 = state.isRunFinished) {
+        if (state.isRunFinished) {
+            onServiceToggle(false)
+        }
+    }
+
+    LaunchedEffect(key1 = state.shouldTrack) {
+        if (context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isServiceActive) {
+            onServiceToggle(true)
+        }
     }
 
     RuniqueScaffold(
@@ -251,6 +267,7 @@ private fun ActiveRunScreenPreview() {
     RuniqueTheme {
         ActiveRunScreen(
             state = ActiveRunState(),
+            onServiceToggle = {},
             onAction = {}
         )
     }
