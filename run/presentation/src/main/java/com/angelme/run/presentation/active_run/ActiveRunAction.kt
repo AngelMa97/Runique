@@ -13,5 +13,6 @@ sealed interface ActiveRunAction {
         val acceptedLNotificationPermission: Boolean,
         val showNotificationRationale: Boolean
     ): ActiveRunAction
-    data object DissmissRationaleDialog: ActiveRunAction
+    data object DismissRationaleDialog: ActiveRunAction
+    class OnRunProcessed(val mapPictureBytes: ByteArray): ActiveRunAction
 }
