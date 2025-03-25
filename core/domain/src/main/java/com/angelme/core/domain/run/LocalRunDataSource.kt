@@ -1,7 +1,6 @@
 package com.angelme.core.domain.run
 
 import com.angelme.core.domain.util.DataError
-import com.angelme.core.domain.util.Error
 import com.angelme.core.domain.util.Result
 import kotlinx.coroutines.flow.Flow
 
