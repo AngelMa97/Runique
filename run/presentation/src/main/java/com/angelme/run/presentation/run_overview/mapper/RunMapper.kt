@@ -1,6 +1,7 @@
 package com.angelme.run.presentation.run_overview.mapper
 
 import com.angelme.core.domain.run.Run
+import com.angelme.core.presentation.ui.formatted
 import com.angelme.core.presentation.ui.toFormattedKm
 import com.angelme.core.presentation.ui.toFormattedKmh
 import com.angelme.core.presentation.ui.toFormattedMeters
@@ -21,7 +22,7 @@ fun Run.toRunUi(): RunUi {
     
     return RunUi(
         id = id!!,
-        duration = duration.toString(),
+        duration = duration.formatted(),
         dateTime = formattedDateTime,
         distance = distanceKm.toFormattedKm(),
         avgSpeed = avgSpeedKmh.toFormattedKmh(),
