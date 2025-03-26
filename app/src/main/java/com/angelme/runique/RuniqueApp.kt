@@ -7,6 +7,7 @@ import com.angelme.core.data.networking.di.coreDataModule
 import com.angelme.core.database.di.databaseModule
 import com.angelme.core.presentation.designsystem.BuildConfig
 import com.angelme.run.location.di.locationModule
+import com.angelme.run.network.di.networkModule
 import com.angelme.run.presentation.di.runPresentationModule
 import com.angelme.runique.di.appModule
 import kotlinx.coroutines.CoroutineScope
@@ -36,7 +37,8 @@ class RuniqueApp: Application() {
                 coreDataModule,
                 runPresentationModule,
                 locationModule,
-                databaseModule
+                databaseModule,
+                networkModule
             )
         }
     }
