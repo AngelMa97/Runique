@@ -1,6 +1,7 @@
 package com.angelme.runique
 
 import android.app.Application
+import android.content.Context
 import com.angelme.auth.data.di.authDataModule
 import com.angelme.auth.presentation.di.authViewModelModule
 import com.angelme.core.data.networking.di.coreDataModule
@@ -11,6 +12,7 @@ import com.angelme.run.location.di.locationModule
 import com.angelme.run.network.di.networkModule
 import com.angelme.run.presentation.di.runPresentationModule
 import com.angelme.runique.di.appModule
+import com.google.android.play.core.splitcompat.SplitCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
@@ -45,5 +47,11 @@ class RuniqueApp: Application() {
                 runDataModule
             )
         }
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+
+        SplitCompat.install(this)
     }
 }
