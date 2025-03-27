@@ -6,6 +6,7 @@ import com.angelme.auth.presentation.di.authViewModelModule
 import com.angelme.core.data.networking.di.coreDataModule
 import com.angelme.core.database.di.databaseModule
 import com.angelme.core.presentation.designsystem.BuildConfig
+import com.angelme.run.data.di.runDataModule
 import com.angelme.run.location.di.locationModule
 import com.angelme.run.network.di.networkModule
 import com.angelme.run.presentation.di.runPresentationModule
@@ -14,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
@@ -30,6 +32,7 @@ class RuniqueApp: Application() {
         startKoin {
             androidLogger()
             androidContext(this@RuniqueApp)
+            workManagerFactory()
             modules(
                 authDataModule,
                 authViewModelModule,
@@ -38,7 +41,8 @@ class RuniqueApp: Application() {
                 runPresentationModule,
                 locationModule,
                 databaseModule,
-                networkModule
+                networkModule,
+                runDataModule
             )
         }
     }
