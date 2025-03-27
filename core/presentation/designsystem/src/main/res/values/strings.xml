@@ -50,4 +50,9 @@
     <string name="max_speed">Max Speed</string>
     <string name="total_elevation">Total Elevation</string>
     <string name="delete">Delete</string>
+    <string name="total_distance_run">Total distance run</string>
+    <string name="total_time_run">Total time run</string>
+    <string name="fastest_ever_run">Fastest ever run</string>
+    <string name="avg_distance_per_dun">Avg. distance per run</string>
+    <string name="avg_pace_per_run">Avg. pace per run</string>
 </resources>
