@@ -1,5 +1,6 @@
 package com.angelme.core.data.run
 
+import com.angelme.core.data.networking.get
 import com.angelme.core.database.dao.RunPendingSyncDao
 import com.angelme.core.database.mappers.toRun
 import com.angelme.core.domain.SessionStorage
@@ -13,6 +14,9 @@ import com.angelme.core.domain.util.DataError
 import com.angelme.core.domain.util.EmptyResult
 import com.angelme.core.domain.util.Result
 import com.angelme.core.domain.util.asEmptyDataResult
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.auth.authProviders
+import io.ktor.client.plugins.auth.providers.BearerAuthProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -26,7 +30,8 @@ class OfflineFirstRunRepository(
     private val applicationScope: CoroutineScope,
     private val runPendingSyncDao: RunPendingSyncDao,
     private val sessionStorage: SessionStorage,
-    private val syncRunScheduler: SyncRunScheduler
+    private val syncRunScheduler: SyncRunScheduler,
+    private val client: HttpClient
 ) : RunRepository {
 
     override fun getRuns(): Flow<List<Run>> =
@@ -147,6 +152,22 @@ class OfflineFirstRunRepository(
             createdJobs.forEach { it.join() }
             deletedJobs.forEach { it.join() }
         }
+    }
+
+    override suspend fun deleteAllRuns() {
+        localRunDataSource.deleteAllRuns()
+    }
+
+    override suspend fun logout(): EmptyResult<DataError.Network> {
+        val result = client.get<Unit>(
+            route = "/logout"
+        ).asEmptyDataResult()
+
+        client.authProviders.filterIsInstance<BearerAuthProvider>()
+            .firstOrNull()
+            ?.clearToken()
+
+        return result
     }
 
 }
