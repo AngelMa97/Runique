@@ -22,7 +22,7 @@ fun RunDto.toRun(): Run {
 fun Run.toCreateRunRequest(): CreateRunRequest {
     return CreateRunRequest(
         id = id!!,
-        durationMillis = duration.inWholeSeconds,
+        durationMillis = duration.inWholeMilliseconds,
         distanceMeters = distanceMeters,
         lat = location.lat,
         long = location.lng,
