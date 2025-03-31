@@ -26,7 +26,6 @@ import androidx.health.services.client.resumeExercise
 import androidx.health.services.client.startExercise
 import com.angelme.core.domain.util.EmptyResult
 import com.angelme.core.domain.util.Result
-import com.angelme.core.presentation.designsystem_wear.BuildConfig
 import com.angelme.wear.run.domain.ExerciseError
 import com.angelme.wear.run.domain.ExerciseTracker
 import kotlinx.coroutines.Dispatchers
