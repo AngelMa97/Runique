@@ -74,7 +74,7 @@ class RunningTracker(
 
         isTracking
             .flatMapLatest { isTracking ->
-                if (isTracking) exerciseTracker.hearRate
+                if (isTracking) exerciseTracker.heartRate
                 else flowOf()
             }
             .onEach { heartRate ->

@@ -42,7 +42,7 @@ class HealthServicesExerciseTracker(
 
     private val client = HealthServices.getClient(context).exerciseClient
 
-    override val hearRate: Flow<Int>
+    override val heartRate: Flow<Int>
         get() = callbackFlow {
             val callback = object : ExerciseUpdateCallback {
                 override fun onAvailabilityChanged(
@@ -90,12 +90,12 @@ class HealthServicesExerciseTracker(
     }
 
     override suspend fun prepareExercise(): EmptyResult<ExerciseError> {
-        if (!isHeartRateTrackingSupported()) {
+        if(!isHeartRateTrackingSupported()) {
             return Result.Error(ExerciseError.TRACKING_NOT_SUPPORTED)
         }
 
         val result = getActiveExerciseInfo()
-        if (result is Result.Error) {
+        if(result is Result.Error) {
             return result
         }
 
@@ -109,12 +109,12 @@ class HealthServicesExerciseTracker(
     }
 
     override suspend fun startExercise(): EmptyResult<ExerciseError> {
-        if (!isHeartRateTrackingSupported()) {
+        if(!isHeartRateTrackingSupported()) {
             return Result.Error(ExerciseError.TRACKING_NOT_SUPPORTED)
         }
 
         val result = getActiveExerciseInfo()
-        if (result is Result.Error) {
+        if(result is Result.Error) {
             return result
         }
 
@@ -128,12 +128,12 @@ class HealthServicesExerciseTracker(
     }
 
     override suspend fun resumeExercise(): EmptyResult<ExerciseError> {
-        if (!isHeartRateTrackingSupported()) {
+        if(!isHeartRateTrackingSupported()) {
             return Result.Error(ExerciseError.TRACKING_NOT_SUPPORTED)
         }
 
         val result = getActiveExerciseInfo()
-        if (result is Result.Error && result.error == ExerciseError.ONGOING_OTHER_EXERCISE) {
+        if(result is Result.Error && result.error == ExerciseError.ONGOING_OTHER_EXERCISE) {
             return result
         }
 
@@ -146,12 +146,12 @@ class HealthServicesExerciseTracker(
     }
 
     override suspend fun pauseExercise(): EmptyResult<ExerciseError> {
-        if (!isHeartRateTrackingSupported()) {
+        if(!isHeartRateTrackingSupported()) {
             return Result.Error(ExerciseError.TRACKING_NOT_SUPPORTED)
         }
 
         val result = getActiveExerciseInfo()
-        if (result is Result.Error && result.error == ExerciseError.ONGOING_OTHER_EXERCISE) {
+        if(result is Result.Error && result.error == ExerciseError.ONGOING_OTHER_EXERCISE) {
             return result
         }
 
@@ -164,12 +164,12 @@ class HealthServicesExerciseTracker(
     }
 
     override suspend fun stopExercise(): EmptyResult<ExerciseError> {
-        if (!isHeartRateTrackingSupported()) {
+        if(!isHeartRateTrackingSupported()) {
             return Result.Error(ExerciseError.TRACKING_NOT_SUPPORTED)
         }
 
         val result = getActiveExerciseInfo()
-        if (result is Result.Error && result.error == ExerciseError.ONGOING_OTHER_EXERCISE) {
+        if(result is Result.Error && result.error == ExerciseError.ONGOING_OTHER_EXERCISE) {
             return result
         }
 
@@ -184,10 +184,10 @@ class HealthServicesExerciseTracker(
     @SuppressLint("RestrictedApi")
     private suspend fun getActiveExerciseInfo(): EmptyResult<ExerciseError> {
         val info = client.getCurrentExerciseInfo()
-        return when (info.exerciseTrackedStatus) {
+        return when(info.exerciseTrackedStatus) {
             ExerciseTrackedStatus.NO_EXERCISE_IN_PROGRESS -> Result.Success(Unit)
             ExerciseTrackedStatus.OWNED_EXERCISE_IN_PROGRESS -> Result.Error(ExerciseError.ONGOING_OWN_EXERCISE)
-            ExerciseTrackedStatus.OTHER_APP_IN_PROGRESS -> Result.Error(ExerciseError.ONGOING_OTHER_EXERCISE)
+            ExerciseTrackedStatus.OTHER_APP_IN_PROGRESS ->  Result.Error(ExerciseError.ONGOING_OTHER_EXERCISE)
             else -> Result.Error(ExerciseError.UNKNOWN)
         }
     }

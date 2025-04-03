@@ -5,7 +5,7 @@ import com.angelme.core.domain.util.Error
 import kotlinx.coroutines.flow.Flow
 
 interface ExerciseTracker {
-    val hearRate: Flow<Int>
+    val heartRate: Flow<Int>
     suspend fun isHeartRateTrackingSupported(): Boolean
     suspend fun prepareExercise(): EmptyResult<ExerciseError>
     suspend fun startExercise(): EmptyResult<ExerciseError>
