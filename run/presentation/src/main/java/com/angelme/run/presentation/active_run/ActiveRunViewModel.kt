@@ -235,14 +235,12 @@ class ActiveRunViewModel(
                             watchConnector.sendActionToWatch(MessagingAction.StartOrResume)
                         }
                     }
-
                     MessagingAction.Finish -> {
                         onAction(
                             action = ActiveRunAction.OnFinishRunClick,
                             triggeredOnWatch = true
                         )
                     }
-
                     MessagingAction.Pause -> {
                         if (isTracking.value) {
                             onAction(
@@ -251,9 +249,8 @@ class ActiveRunViewModel(
                             )
                         }
                     }
-
                     MessagingAction.StartOrResume -> {
-                        if (isTracking.value) {
+                        if (!isTracking.value) {
                             if (state.hasStartedRunning) {
                                 onAction(
                                     action = ActiveRunAction.OnResumeRunClick,
@@ -267,7 +264,6 @@ class ActiveRunViewModel(
                             }
                         }
                     }
-
                     else -> Unit
                 }
             }

@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.health.services.client.ExerciseUpdateCallback
 import androidx.health.services.client.HealthServices
@@ -141,6 +142,7 @@ class HealthServicesExerciseTracker(
             client.resumeExercise()
             Result.Success(Unit)
         } catch (e: HealthServicesException) {
+            Log.e("HealthServices", "Failed to resume exercise", e)
             Result.Error(ExerciseError.EXERCISE_ALREADY_ENDED)
         }
     }
@@ -159,6 +161,7 @@ class HealthServicesExerciseTracker(
             client.pauseExercise()
             Result.Success(Unit)
         } catch (e: HealthServicesException) {
+            Log.e("HealthServices", "Failed to pause exercise", e)
             Result.Error(ExerciseError.EXERCISE_ALREADY_ENDED)
         }
     }
@@ -177,6 +180,7 @@ class HealthServicesExerciseTracker(
             client.endExercise()
             Result.Success(Unit)
         } catch (e: HealthServicesException) {
+            Log.e("HealthServices", "Failed to end exercise", e)
             Result.Error(ExerciseError.EXERCISE_ALREADY_ENDED)
         }
     }

@@ -1,5 +1,6 @@
 package com.angelme.wear.run.presentation
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -88,7 +89,7 @@ class TrackerViewModel(
                     }
                 }
 
-                if (!isTracking) {
+                if (isTracking) {
                     state = state.copy(hasStartedRunning = true)
                 }
                 runningTracker.setIsTracking(isTracking)
@@ -134,10 +135,9 @@ class TrackerViewModel(
                 hasBodySensorPermission.value = action.isGranted
                 if (action.isGranted) {
                     viewModelScope.launch {
-                        val isHearRateTrackingSupported =
-                            exerciseTracker.isHeartRateTrackingSupported()
+                        val isHeartRateTrackingSupported = exerciseTracker.isHeartRateTrackingSupported()
                         state = state.copy(
-                            canTrackHeartRate = isHearRateTrackingSupported
+                            canTrackHeartRate = isHeartRateTrackingSupported
                         )
                     }
                 }
@@ -153,13 +153,14 @@ class TrackerViewModel(
                         distanceMeters = 0,
                         heartRate = 0,
                         hasStartedRunning = false,
-                        isRunActive = false,
+                        isRunActive = false
                     )
                 }
             }
             TrackerAction.OnToggleRunClick -> {
                 if (state.isTrackable) {
                     state = state.copy(isRunActive = !state.isRunActive)
+                    Log.e("TRACKERVIEWMODEL::", "isRunActive:: ${state.isRunActive}")
                 }
             }
         }
@@ -168,8 +169,8 @@ class TrackerViewModel(
     private fun sendActionToPhone(action: TrackerAction) {
         viewModelScope.launch {
             val messagingAction = when (action) {
-                TrackerAction.OnFinishRunClick -> MessagingAction.Finish
-                TrackerAction.OnToggleRunClick -> {
+                is TrackerAction.OnFinishRunClick -> MessagingAction.Finish
+                is TrackerAction.OnToggleRunClick -> {
                     if (state.isRunActive) MessagingAction.Pause
                     else MessagingAction.StartOrResume
                 }

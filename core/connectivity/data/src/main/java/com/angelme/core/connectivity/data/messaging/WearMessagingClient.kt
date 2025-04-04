@@ -55,7 +55,7 @@ class WearMessagingClient(
         return connectedNodeId?.let {
             try {
                 val json = Json.encodeToString(action.toMessagingActionDto())
-                client.sendMessage(it, BASE_PATH_MESSAGING_ACTION, json.toByteArray()).await()
+                client.sendMessage(it, BASE_PATH_MESSAGING_ACTION, json.encodeToByteArray()).await()
                 Result.Success(Unit)
             } catch (e: ApiException) {
                 Result.Error(
