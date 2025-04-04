@@ -11,11 +11,11 @@ import com.angelme.core.domain.location.Location
 import com.angelme.core.domain.run.Run
 import com.angelme.core.domain.run.RunRepository
 import com.angelme.core.domain.util.Result
+import com.angelme.core.notification.ActiveRunService
 import com.angelme.core.presentation.ui.asUiText
 import com.angelme.run.domain.LocationDataCalculator
 import com.angelme.run.domain.RunningTracker
 import com.angelme.run.domain.WatchConnector
-import com.angelme.run.presentation.active_run.service.ActiveRunService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,8 +41,8 @@ class ActiveRunViewModel(
 
     var state by mutableStateOf(
         ActiveRunState(
-            shouldTrack = ActiveRunService.isServiceActive && runningTracker.isTracking.value,
-            hasStartedRunning = ActiveRunService.isServiceActive
+            shouldTrack = ActiveRunService.isServiceActive.value && runningTracker.isTracking.value,
+            hasStartedRunning = ActiveRunService.isServiceActive.value
         )
     )
         private set
@@ -272,7 +272,7 @@ class ActiveRunViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        if (!ActiveRunService.isServiceActive) {
+        if (!ActiveRunService.isServiceActive.value) {
             applicationScope.launch {
                 watchConnector.sendActionToWatch(MessagingAction.Untrackable)
             }
