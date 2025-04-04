@@ -47,6 +47,8 @@ import com.angelme.core.presentation.ui.ObserveAsEvents
 import com.angelme.core.presentation.ui.formatted
 import com.angelme.core.presentation.ui.toFormattedHeartRate
 import com.angelme.core.presentation.ui.toFormattedKm
+import com.angelme.wear.run.presentation.ambient.AmbientObserver
+import com.angelme.wear.run.presentation.ambient.ambientMode
 import com.angelme.wear.run.presentation.components.RunDataCard
 import org.koin.androidx.compose.koinViewModel
 
@@ -74,6 +76,7 @@ fun TrackerScreenRoot(
                     Toast.LENGTH_LONG
                 ).show()
             }
+
             TrackerEvent.RunFinished -> {
                 onServiceToggle(false)
             }
@@ -120,11 +123,21 @@ fun TrackerScreen(
         permissionLauncher.launch(permissions.toTypedArray())
     }
 
+    AmbientObserver(
+        onExitAmbient = {
+            onAction(TrackerAction.OnExitAmbientMode)
+        },
+        onEnterAmbient = {
+            onAction(TrackerAction.OnEnterAmbientMode(it.burnInProtectionRequired))
+        }
+    )
+
     if (state.isConnectedPhoneNearby) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background),
+                .background(MaterialTheme.colorScheme.background)
+                .ambientMode(state.isAmbientMode, state.burnInProtectionRequired),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
