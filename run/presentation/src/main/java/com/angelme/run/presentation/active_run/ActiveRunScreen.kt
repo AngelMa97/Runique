@@ -20,11 +20,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.angelme.core.notification.ActiveRunService
 import com.angelme.core.presentation.designsystem.R
 import com.angelme.core.presentation.designsystem.RuniqueTheme
 import com.angelme.core.presentation.designsystem.StartIcon
@@ -38,7 +41,6 @@ import com.angelme.core.presentation.designsystem.components.RuniqueToolbar
 import com.angelme.core.presentation.ui.ObserveAsEvents
 import com.angelme.run.presentation.active_run.components.RunDataCard
 import com.angelme.run.presentation.active_run.maps.TrackerMap
-import com.angelme.run.presentation.active_run.service.ActiveRunService
 import com.angelme.run.presentation.util.hasLocationPermission
 import com.angelme.run.presentation.util.hasNotificationPermission
 import com.angelme.run.presentation.util.shouldShowLocationPermissionRationale
@@ -151,8 +153,9 @@ fun ActiveRunScreen(
         }
     }
 
-    LaunchedEffect(key1 = state.shouldTrack) {
-        if (context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isServiceActive) {
+    val isServiceActive by ActiveRunService.isServiceActive.collectAsStateWithLifecycle()
+    LaunchedEffect(key1 = state.shouldTrack, isServiceActive) {
+        if (context.hasLocationPermission() && state.shouldTrack && !isServiceActive) {
             onServiceToggle(true)
         }
     }

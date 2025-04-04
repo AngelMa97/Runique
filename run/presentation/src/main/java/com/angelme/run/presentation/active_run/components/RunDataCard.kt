@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.angelme.core.presentation.designsystem.R
 import com.angelme.core.presentation.designsystem.RuniqueTheme
 import com.angelme.core.presentation.ui.formatted
+import com.angelme.core.presentation.ui.toFormattedHeartRate
 import com.angelme.core.presentation.ui.toFormattedKm
 import com.angelme.core.presentation.ui.toFormattedPace
 import com.angelme.run.domain.RunData
@@ -58,6 +59,12 @@ fun RunDataCard(
             RunDataItem(
                 title = stringResource(id = R.string.distance),
                 value = (runData.distanceMeters / 1000.0).toFormattedKm(),
+                modifier = Modifier
+                    .defaultMinSize(minWidth = 75.dp)
+            )
+            RunDataItem(
+                title = stringResource(id = R.string.heart_rate),
+                value = runData.heartRate.lastOrNull().toFormattedHeartRate(),
                 modifier = Modifier
                     .defaultMinSize(minWidth = 75.dp)
             )
@@ -105,7 +112,8 @@ private fun RunDataCardPreview() {
             elapsedTime = 10.minutes,
             runData = RunData(
                 distanceMeters = 3425,
-                pace = 3.minutes
+                pace = 3.minutes,
+                heartRate = listOf(120, 130, 140)
             )
         )
     }

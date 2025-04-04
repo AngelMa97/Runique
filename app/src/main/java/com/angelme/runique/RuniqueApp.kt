@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.angelme.auth.data.di.authDataModule
 import com.angelme.auth.presentation.di.authViewModelModule
+import com.angelme.core.connectivity.data.di.coreConnectivityDataModule
 import com.angelme.core.data.networking.di.coreDataModule
 import com.angelme.core.database.di.databaseModule
 import com.angelme.core.presentation.designsystem.BuildConfig
@@ -44,7 +45,8 @@ class RuniqueApp: Application() {
                 locationModule,
                 databaseModule,
                 networkModule,
-                runDataModule
+                runDataModule,
+                coreConnectivityDataModule
             )
         }
     }
